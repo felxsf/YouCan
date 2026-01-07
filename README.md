@@ -38,6 +38,7 @@ No requiere instalación. Clona o descarga este repositorio y usa Python directa
 - `--mode interactive|arg`: modo de entrada (`interactive` pide input si no se pasa texto; `arg` solo usa argumentos).
 - `--style minimal|bonito`: formato de salida (`bonito` incluye banner y separadores; `minimal` solo el mensaje).
 - `--no-banner`: oculta el banner cuando el estilo es `bonito`.
+- `--provider heuristic|foundry`: fuente de generación del mensaje (por defecto: `heuristic`).
 - `text`: texto libre como argumentos al final.
 
 ### Ejemplos
@@ -52,6 +53,14 @@ No requiere instalación. Clona o descarga este repositorio y usa Python directa
 - Interactivo en español, sin banner:
   ```bash
   python you_can\main.py --mode interactive --lang es --no-banner
+  ```
+  
+- Foundry (requiere variables de entorno):
+  ```bash
+  set FOUNDRY_ENDPOINT=https://<tu-endpoint>
+  set FOUNDRY_AGENT_ID=asst_XXXXXXXX
+  set FOUNDRY_API_KEY=<tu-api-key>
+  python you_can\main.py --provider foundry --mode arg --lang es "Quiero avanzar pero me siento ansioso"
   ```
 
 ### Ejemplo de salida
@@ -94,6 +103,26 @@ you_can/
   ```
 - Palabras clave: amplía listas en `you_can/sentiment.py` para mejorar el análisis en ES/EN.
 - Formato de salida: usa `--style minimal|bonito` y `--no-banner` o modifica el banner/separadores en `you_can/main.py`.
+  
+### Integración con Microsoft Foundry
+- Variables de entorno requeridas:
+  - `FOUNDRY_ENDPOINT`: URL de tu servicio de agentes (endpoint de respuestas del agente).
+  - `FOUNDRY_AGENT_ID`: ID del agente creado en Foundry.
+  - `FOUNDRY_API_KEY`: clave para autenticar la llamada.
+- Comportamiento:
+  - Si `--provider foundry` está activo y la llamada falla o faltan variables, se usa el modo heurístico como respaldo.
+  - El mensaje sigue las mismas reglas: 2–4 frases, humano, empático y accionable.
+  
+### Scripts de entorno
+- Plantilla: copia `.env.example` a `.env` y completa tus valores (no lo subas al repo).
+- Windows:
+  ```powershell
+  scripts\set_env.ps1 -Path .env
+  ```
+- macOS/Linux:
+  ```bash
+  bash scripts/set_env.sh .env
+  ```
 
 ## Manejo de errores
 - Interrupciones con `Ctrl+C` y fin de archivo (`EOF`) se gestionan con mensajes claros.

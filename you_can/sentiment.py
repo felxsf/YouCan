@@ -162,3 +162,22 @@ def analyze_sentiment(text: str, lang: str = "es") -> str:
     if s >= 1:
         return "positive"
     return "neutral"
+
+
+def detect_language(text: str) -> str:
+    t = normalize(text)
+    tokens = t.split()
+    es_hits = 0
+    en_hits = 0
+    for tok in tokens:
+        if tok in POS_ES or tok in NEG_ES or tok in INTENS_ES or tok in NEGATORS_ES:
+            es_hits += 1
+        if tok in POS_EN or tok in NEG_EN or tok in INTENS_EN or tok in NEGATORS_EN:
+            en_hits += 1
+    if any(ch in text for ch in "áéíóúñü"):
+        es_hits += 2
+    es_stop = {"el", "la", "los", "las", "y", "que", "pero", "para", "estoy", "quiero", "solo", "siento"}
+    en_stop = {"the", "and", "that", "but", "for", "i", "feel", "want", "just"}
+    es_hits += sum(1 for tok in tokens if tok in es_stop)
+    en_hits += sum(1 for tok in tokens if tok in en_stop)
+    return "es" if es_hits >= en_hits else "en"
