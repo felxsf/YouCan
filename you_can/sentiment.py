@@ -1,7 +1,7 @@
 import re
 
 
-POSITIVE = {
+POS_ES = {
     "bien",
     "mejor",
     "tranquilo",
@@ -26,9 +26,12 @@ POSITIVE = {
     "confío",
     "confianza",
     "ganas",
+    "fortaleza",
+    "calmado",
+    "centrado",
 }
 
-NEGATIVE = {
+NEG_ES = {
     "mal",
     "peor",
     "ansioso",
@@ -47,8 +50,6 @@ NEGATIVE = {
     "sola",
     "culpa",
     "vergüenza",
-    "no puedo",
-    "no sirvo",
     "fracaso",
     "bloqueado",
     "bloqueo",
@@ -58,46 +59,104 @@ NEGATIVE = {
     "dolor",
 }
 
+POS_EN = {
+    "good",
+    "better",
+    "calm",
+    "content",
+    "happy",
+    "joyful",
+    "hope",
+    "optimistic",
+    "grateful",
+    "progress",
+    "learning",
+    "motivated",
+    "confidence",
+    "strong",
+    "focused",
+}
+
+NEG_EN = {
+    "bad",
+    "worse",
+    "anxious",
+    "anxiety",
+    "fear",
+    "sad",
+    "tired",
+    "exhausted",
+    "stressed",
+    "frustrated",
+    "alone",
+    "guilt",
+    "shame",
+    "failure",
+    "blocked",
+    "nervous",
+    "lost",
+    "hurt",
+    "pain",
+}
+
+INTENS_ES = {"muy", "super", "bastante"}
+NEGATORS_ES = {"no", "nunca"}
+
+NEGATORS_EN = {"not", "never", "can't", "cannot", "dont", "don't"}
+INTENS_EN = {"very", "super", "quite"}
+
 
 def normalize(text: str) -> str:
     t = text.lower()
-    t = re.sub(r"[^\wáéíóúñü\s]", " ", t)
+    t = re.sub(r"[^\wáéíóúñü\s']", " ", t)
     t = " ".join(t.split())
     return t
 
 
-def score(text: str) -> int:
+def score(text: str, lang: str = "es") -> int:
     t = normalize(text)
     neg_hits = 0
     pos_hits = 0
     tokens = t.split()
     joined = " ".join(tokens)
-    for phrase in NEGATIVE:
+    pos = POS_ES if lang == "es" else POS_EN
+    neg = NEG_ES if lang == "es" else NEG_EN
+    intens = INTENS_ES if lang == "es" else INTENS_EN
+    negators = NEGATORS_ES if lang == "es" else NEGATORS_EN
+    for phrase in neg:
         if phrase in joined:
             neg_hits += 2
-    for phrase in POSITIVE:
+    for phrase in pos:
         if phrase in joined:
             pos_hits += 2
-    for tok in tokens:
-        if tok in NEGATIVE:
+    for i, tok in enumerate(tokens):
+        if tok in neg:
             neg_hits += 1
-        if tok in POSITIVE:
+        if tok in pos:
             pos_hits += 1
-    if "no" in tokens:
-        idxs = [i for i, w in enumerate(tokens) if w == "no"]
-        for i in idxs:
+        if tok in intens and i + 1 < len(tokens):
+            nxt = tokens[i + 1]
+            if nxt in pos:
+                pos_hits += 1
+            if nxt in neg:
+                neg_hits += 1
+        if tok in negators:
             for j in range(i + 1, min(i + 3, len(tokens))):
-                if tokens[j] in POSITIVE or tokens[j].endswith("o") or tokens[j].endswith("a"):
+                nxt = tokens[j]
+                if nxt in pos:
+                    pos_hits -= 1
+                    neg_hits += 2
+                if nxt in neg:
                     neg_hits += 1
-    if re.search(r"(:\)|🙂|😊|💪)", text):
+    if re.search(r"(\:\)|:-\)|🙂|😊|😄|💪|🙌|:D)", text):
         pos_hits += 1
-    if re.search(r"(:\(|😔|😞)", text):
+    if re.search(r"(\:\(|:-\(|😔|😞|😢|:/)", text):
         neg_hits += 1
     return pos_hits - neg_hits
 
 
-def analyze_sentiment(text: str) -> str:
-    s = score(text)
+def analyze_sentiment(text: str, lang: str = "es") -> str:
+    s = score(text, lang=lang)
     if s <= -1:
         return "negative"
     if s >= 1:

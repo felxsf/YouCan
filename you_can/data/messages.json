@@ -1,20 +1,54 @@
 {
-  "negative": [
-    "Lo que sientes es válido y merece espacio.",
-    "Aunque hoy pese, tu valor no depende de este momento.",
-    "Tu energía es limitada y está bien priorizar lo esencial.",
-    "Puedes moverte despacio y aún así avanzar con intención."
-  ],
-  "neutral": [
-    "Estás en un punto estable: úsalos para ordenar tu camino.",
-    "Tu claridad crece cuando defines lo siguiente en concreto.",
-    "La dirección importa más que la velocidad: elige un rumbo simple.",
-    "Pequeñas decisiones consistentes construyen resultados confiables."
-  ],
-  "positive": [
-    "Tu avance es real y merece reconocimiento.",
-    "La motivación se fortalece cuando la conviertes en hábito breve.",
-    "Estás creando evidencia de tu capacidad de progreso.",
-    "La constancia transforma buenas intenciones en resultados concretos."
-  ]
+  "es": {
+    "negative": [
+      "Lo que sientes es válido y merece espacio.",
+      "Aunque hoy pese, tu valor no depende de este momento.",
+      "Tu energía es limitada y está bien priorizar lo esencial.",
+      "Puedes moverte despacio y aún así avanzar con intención.",
+      "Date permiso para pausar sin culpas y cuidar tu ritmo.",
+      "Reconoce una preocupación y decide un paso breve para atenderla."
+    ],
+    "neutral": [
+      "Estás en un punto estable: úsalo para ordenar tu camino.",
+      "Tu claridad crece cuando defines lo siguiente en concreto.",
+      "La dirección importa más que la velocidad: elige un rumbo simple.",
+      "Pequeñas decisiones consistentes construyen resultados confiables.",
+      "Selecciona una tarea pequeña y avanza sin perfeccionismo.",
+      "Observa tu estado y planifica un siguiente movimiento factible."
+    ],
+    "positive": [
+      "Tu avance es real y merece reconocimiento.",
+      "La motivación se fortalece cuando la conviertes en hábito breve.",
+      "Estás creando evidencia de tu capacidad de progreso.",
+      "La constancia transforma buenas intenciones en resultados concretos.",
+      "Celebra un logro y tradúcelo en el siguiente paso simple.",
+      "Sostén tu energía enfocándote en una acción concreta hoy."
+    ]
+  },
+  "en": {
+    "negative": [
+      "What you feel is valid and deserves space.",
+      "Even if today is heavy, your worth isn’t defined by it.",
+      "Your energy is limited; it’s okay to prioritize the essential.",
+      "You can move slowly and still advance with intention.",
+      "Allow yourself to pause without guilt and protect your pace.",
+      "Name one concern and choose a brief step to address it."
+    ],
+    "neutral": [
+      "You’re in a stable point: use it to organize your path.",
+      "Clarity grows when you define the next step concretely.",
+      "Direction matters more than speed: pick a simple course.",
+      "Small consistent decisions build reliable outcomes.",
+      "Select a small task and move without perfectionism.",
+      "Notice your state and plan a feasible next move."
+    ],
+    "positive": [
+      "Your progress is real and worth acknowledging.",
+      "Motivation strengthens when turned into brief habits.",
+      "You’re building evidence of your capacity to improve.",
+      "Consistency turns good intentions into concrete results.",
+      "Celebrate a win and translate it into the next simple step.",
+      "Sustain your energy by focusing on one concrete action today."
+    ]
+  }
 }

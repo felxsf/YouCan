@@ -1,12 +1,13 @@
-# You Can — CLI motivacional en español
+# You Can — CLI motivacional (ES/EN)
 
-Aplicación de consola que recibe cómo te sientes, analiza el sentimiento (negativo, neutral, positivo) y responde con un mensaje motivacional corto, claro, empático y accionable.
+Aplicación de consola que recibe cómo te sientes, analiza el sentimiento (negativo, neutral, positivo) y responde con un mensaje motivacional corto, claro, empático y accionable. Soporta español e inglés.
 
 ## Características
 - Entrada por consola (interactiva o por argumento).
-- Análisis de sentimiento básico sin dependencias externas.
+- Análisis de sentimiento básico sin dependencias externas (ES/EN).
 - Mensajes breves, humanos y sin clichés, con una acción concreta.
 - Estructura modular preparada para futuras integraciones de IA.
+- Banderas CLI: idioma, estilo de salida, modo de ejecución y banner.
 
 ## Requisitos
 - Python 3.10+
@@ -32,6 +33,27 @@ No requiere instalación. Clona o descarga este repositorio y usa Python directa
   python you_can\main.py
   ```
 
+### Opciones CLI
+- `--lang es|en`: idioma de mensajes y análisis (por defecto: `es`).
+- `--mode interactive|arg`: modo de entrada (`interactive` pide input si no se pasa texto; `arg` solo usa argumentos).
+- `--style minimal|bonito`: formato de salida (`bonito` incluye banner y separadores; `minimal` solo el mensaje).
+- `--no-banner`: oculta el banner cuando el estilo es `bonito`.
+- `text`: texto libre como argumentos al final.
+
+### Ejemplos
+- Español, con estilo bonito y argumento:
+  ```bash
+  python you_can\main.py --mode arg --lang es "Estoy muy motivado y con confianza, listo para avanzar"
+  ```
+- Inglés, estilo minimal:
+  ```bash
+  python you_can\main.py --mode arg --lang en --style minimal "I feel very anxious but I want to make progress"
+  ```
+- Interactivo en español, sin banner:
+  ```bash
+  python you_can\main.py --mode interactive --lang es --no-banner
+  ```
+
 ### Ejemplo de salida
 ```
 ════════════════════════════════════════════════
@@ -53,19 +75,25 @@ you_can/
 ├── sentiment.py          # Análisis de sentimiento (heurístico)
 ├── motivator.py          # Generación de mensaje motivacional
 └── data/
-    └── messages.json     # Mensajes base por sentimiento
+    └── messages.json     # Mensajes base por sentimiento e idioma
 ```
 
 ## Diseño y lógica
 1. Captura input del usuario (argumento CLI o entrada interactiva).
-2. Analiza el sentimiento con una heurística ligera en español.
-3. Selecciona un mensaje base desde `messages.json` y añade una acción concreta.
+2. Analiza el sentimiento con una heurística ligera (ES/EN), incluyendo negaciones, intensificadores y emojis.
+3. Selecciona un mensaje base desde `messages.json` según idioma y tono; añade una acción concreta.
 4. Muestra el resultado en consola con formato claro.
 
 ## Personalización
-- Mensajes: edita `you_can/data/messages.json` para ajustar el tono.
-- Palabras clave: amplía listas en `you_can/sentiment.py` para mejorar el análisis.
-- Formato de salida: modifica el banner y separadores en `you_can/main.py`.
+- Mensajes: edita `you_can/data/messages.json` para ajustar el tono y el idioma:
+  ```json
+  {
+    "es": { "negative": [...], "neutral": [...], "positive": [...] },
+    "en": { "negative": [...], "neutral": [...], "positive": [...] }
+  }
+  ```
+- Palabras clave: amplía listas en `you_can/sentiment.py` para mejorar el análisis en ES/EN.
+- Formato de salida: usa `--style minimal|bonito` y `--no-banner` o modifica el banner/separadores en `you_can/main.py`.
 
 ## Manejo de errores
 - Interrupciones con `Ctrl+C` y fin de archivo (`EOF`) se gestionan con mensajes claros.
