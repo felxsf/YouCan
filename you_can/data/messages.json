@@ -1,0 +1,20 @@
+{
+  "negative": [
+    "Lo que sientes es válido y merece espacio.",
+    "Aunque hoy pese, tu valor no depende de este momento.",
+    "Tu energía es limitada y está bien priorizar lo esencial.",
+    "Puedes moverte despacio y aún así avanzar con intención."
+  ],
+  "neutral": [
+    "Estás en un punto estable: úsalos para ordenar tu camino.",
+    "Tu claridad crece cuando defines lo siguiente en concreto.",
+    "La dirección importa más que la velocidad: elige un rumbo simple.",
+    "Pequeñas decisiones consistentes construyen resultados confiables."
+  ],
+  "positive": [
+    "Tu avance es real y merece reconocimiento.",
+    "La motivación se fortalece cuando la conviertes en hábito breve.",
+    "Estás creando evidencia de tu capacidad de progreso.",
+    "La constancia transforma buenas intenciones en resultados concretos."
+  ]
+}
